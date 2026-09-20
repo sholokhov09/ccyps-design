@@ -3,11 +3,15 @@
 :root{
   --ink:#101010;
   --paper:#fff;
-  --line:#d8d8d8;
+  --line:#d9d9d9;
+  --line-strong:#c6c6c6;
   --muted:#8a8a8a;
+  --surface-hover:#f7f7f7;
+  --surface-active:#ececec;
   --header-h:68px;
   --rail-w:380px;
 }
+
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;min-height:100%;background:var(--paper);color:var(--ink);font-family:'Alexandria',Arial,sans-serif}
 body{font-size:14px}
@@ -22,7 +26,7 @@ a{color:inherit}
   min-width:0;
   padding:0 14px 0 16px;
   gap:24px;
-  border-bottom:1px solid var(--ink);
+  border-bottom:1px solid var(--line);
   background:#fff;
   z-index:10;
 }
@@ -33,7 +37,7 @@ a{color:inherit}
 .site-nav{display:flex;align-items:center;justify-content:center;gap:28px}
 .site-nav a{
   padding:8px 0;
-  font-size:14px;
+  font-size:16px;
   line-height:1.2;
   font-weight:400;
   color:var(--muted);
@@ -44,10 +48,11 @@ a{color:inherit}
 .site-nav a.active{font-weight:700}
 
 .head-actions{display:flex;justify-content:flex-end;align-items:center;gap:8px}
+
 button{
-  border:1px solid var(--ink);
-  background:transparent;
-  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:0;
   padding:8px 12px;
   cursor:pointer;
   text-transform:uppercase;
@@ -56,29 +61,47 @@ button{
   font-weight:700;
   letter-spacing:.04em;
 }
-button:hover{background:var(--ink);color:var(--paper)}
-button.primary{background:var(--ink);color:var(--paper)}
+button:hover{background:var(--surface-hover);color:var(--ink)}
+button.primary{background:#fff;color:var(--ink)}
+button.primary:hover{background:var(--surface-hover)}
 
 .section{padding:15px 16px 17px;border-bottom:1px solid var(--line)}
 .section-title{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:16px;font-size:10px;text-transform:uppercase;letter-spacing:.08em
+  display:flex;
+  align-items:center;
+  margin-bottom:16px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
 }
-.section-title span:last-child{opacity:.5}
 .note{font-size:10px;line-height:1.4;margin-top:8px;opacity:.65}
 
-.choice,.seg{display:grid;border:1px solid var(--ink);border-radius:999px;overflow:hidden}
+.choice,.seg{
+  display:grid;
+  border:1px solid var(--line);
+  border-radius:0;
+  overflow:hidden;
+}
 .choice{grid-template-columns:repeat(2,1fr)}
 .choice.three,.seg{grid-template-columns:repeat(3,1fr)}
 .choice button,.seg button{
-  border:0;border-right:1px solid var(--ink);border-radius:0;
-  padding:8px 5px;background:#fff;color:var(--ink)
+  border:0;
+  border-right:1px solid var(--line);
+  border-radius:0;
+  padding:8px 5px;
+  background:#fff;
+  color:var(--ink);
 }
 .choice button:last-child,.seg button:last-child{border-right:0}
-.choice button.active,.seg button.active{background:var(--ink);color:#fff}
+.choice button:hover,.seg button:hover{background:var(--surface-hover);color:var(--ink)}
+.choice button.active,.seg button.active{
+  background:var(--surface-active);
+  color:var(--ink);
+  font-weight:700;
+}
 
-a,button{transition:background-color .15s ease,color .15s ease,opacity .15s ease}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+a,button{transition:background-color .15s ease,color .15s ease,border-color .15s ease,opacity .15s ease}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:1px solid var(--ink);outline-offset:2px}
 
 @media(max-width:780px){
   :root{--header-h:auto}
