@@ -1,67 +1,116 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CCYPS Design — Bộ tạo Họa tiết</title>
+<title>CCYPS Design Toolkit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--ink:#101010;--paper:#ffffff;--line:#d8d8d8;--panel:#ffffff}
-  *{box-sizing:border-box}
-  html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:'Alexandria',Arial,Helvetica,sans-serif}
-  body{overflow:hidden}
-  button,input{font:inherit;color:inherit}
-  .app{height:100dvh;display:grid;grid-template-rows:72px 1fr}
-  header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ink);padding:0 14px 0 18px;letter-spacing:.02em}
-  .brand{display:flex;align-items:center;gap:12px}
-  .brand-logo{width:26px;height:29px;display:block;flex:0 0 auto;fill:var(--ink)}
-  .brand-copy{display:flex;flex-direction:column;gap:2px;line-height:1.05}
-  .brand-title{font-size:14px;font-weight:700;letter-spacing:.01em}
-  .brand-subtitle{font-size:11px;font-weight:400;color:#8a8a8a;letter-spacing:.01em}
-  .head-actions{display:flex;gap:8px}
-  button{border:1px solid var(--ink);background:transparent;border-radius:999px;padding:8px 12px;cursor:pointer;text-transform:uppercase;font-size:11px;font-weight:700;letter-spacing:.04em}
-  button:hover{background:var(--ink);color:var(--paper)}
-  button.primary{background:var(--ink);color:var(--paper)}
-  button.primary:hover{background:#333;border-color:#333;color:#fff}
-  main{min-height:0;display:grid;grid-template-columns:380px minmax(0,1fr)}
-  .stage{position:relative;min-width:0;min-height:0;background:#fff;display:grid;place-items:center;overflow:hidden}
-  .canvas-shell{position:relative;width:100%;height:100%;display:grid;place-items:center;padding:28px}
-  canvas{display:block;max-width:100%;max-height:100%;box-shadow:0 0 0 1px rgba(0,0,0,.12);background:#071a52}
-  .stage-label{position:absolute;left:14px;top:12px;z-index:2;color:var(--ink);font-size:10px;text-transform:uppercase;letter-spacing:.08em}
-  aside{order:1;border-right:1px solid var(--ink);background:var(--paper);overflow:auto}
-  .stage{order:2}
-  .section{padding:15px 16px 17px;border-bottom:1px solid var(--line)}
-  .section-title{display:flex;justify-content:space-between;align-items:center;font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
-  .section-title span:last-child{opacity:.5}
-  .control{margin:0 0 17px}
-  .control:last-child{margin-bottom:0}
-  .control label{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;text-transform:uppercase;margin-bottom:8px;font-weight:700}
-  .value{font-variant-numeric:tabular-nums;font-weight:400;opacity:.65}
-  input[type="range"]{appearance:none;width:100%;height:18px;background:transparent;cursor:ew-resize;margin:0}
-  input[type="range"]::-webkit-slider-runnable-track{height:1px;background:var(--ink)}
-  input[type="range"]::-webkit-slider-thumb{appearance:none;width:12px;height:12px;border:1px solid var(--ink);background:var(--paper);border-radius:50%;margin-top:-5.5px}
-  input[type="range"]::-moz-range-track{height:1px;background:var(--ink)}
-  input[type="range"]::-moz-range-thumb{width:10px;height:10px;border:1px solid var(--ink);background:var(--paper);border-radius:50%}
-  .seed-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;margin-bottom:22px}
-  .seed-display{border:1px solid var(--ink);border-radius:999px;padding:8px 12px;font-size:11px;font-variant-numeric:tabular-nums}
-  .seg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink);border-radius:999px;overflow:hidden}
-  .seg button{border:0;border-right:1px solid var(--ink);border-radius:0;padding:8px 5px;background:transparent;color:var(--ink)}
-  .seg button:last-child{border-right:0}
-  .seg button.active{background:var(--ink);color:var(--paper)}
-  .palette{height:28px;border:1px solid var(--ink);background:linear-gradient(90deg,#071a52 0%,#1546b8 15%,#00b7e5 30%,#83e45b 45%,#f3ee3a 58%,#ff9d19 72%,#f43a1d 87%,#b80f1a 100%)}
-  .note{font-size:10px;line-height:1.4;margin-top:8px;opacity:.65}
-  @media(max-width:780px){body{overflow:auto}.app{height:auto;min-height:100dvh;grid-template-rows:72px auto}main{grid-template-columns:1fr}.stage{order:1;height:58dvh}.stage{border-bottom:1px solid var(--ink)}aside{order:2;border-right:0}.canvas-shell{padding:18px}}
+:root{--ink:#101010;--paper:#fff;--line:#d8d8d8;--muted:#777}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:'Alexandria',Arial,sans-serif}
+body{overflow:hidden}
+button,input{font:inherit;color:inherit}
+.app{height:100dvh;display:grid;grid-template-rows:72px 1fr}
+header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ink);padding:0 14px 0 18px;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;min-width:max-content}
+.brand-logo{width:26px;height:29px;display:block;fill:var(--ink)}
+.brand-title{font-size:14px;font-weight:700}
+nav{display:flex;align-items:center;gap:3px;padding:3px;background:#f1f1ef;border-radius:999px;align-self:center}
+.nav-btn{border:0;border-radius:999px;background:transparent;padding:7px 12px;font-size:10px;font-weight:600;text-transform:none;letter-spacing:0;line-height:1;white-space:nowrap}
+.nav-btn.active{background:var(--ink);color:#fff}
+.nav-btn:hover{background:#deded9;color:var(--ink)}
+.nav-btn.active:hover{background:var(--ink);color:#fff}
+.head-actions{display:flex;gap:8px;min-width:max-content}
+button{border:1px solid var(--ink);background:transparent;border-radius:999px;padding:8px 12px;cursor:pointer;text-transform:uppercase;font-size:11px;font-weight:700;letter-spacing:.04em}
+button:hover{background:var(--ink);color:var(--paper)}
+button.primary{background:var(--ink);color:var(--paper)}
+button.primary:hover{background:#333;border-color:#333}
+.view{display:none;min-height:0;height:100%}
+.view.active{display:grid}
+#patternView{grid-template-columns:380px minmax(0,1fr)}
+.stage{position:relative;min-width:0;min-height:0;background:#fff;display:grid;place-items:center;overflow:hidden;order:2}
+.canvas-shell{position:relative;width:100%;height:100%;display:grid;place-items:center;padding:28px}
+canvas{display:block;max-width:100%;max-height:100%;box-shadow:0 0 0 1px rgba(0,0,0,.12);background:#071a52}
+.stage-label{position:absolute;left:14px;top:12px;z-index:2;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+aside{order:1;border-right:1px solid var(--ink);background:#fff;overflow:auto}
+.section{padding:15px 16px 17px;border-bottom:1px solid var(--line)}
+.section-title{display:flex;justify-content:space-between;align-items:center;font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
+.section-title span:last-child{opacity:.5}
+.control{margin:0 0 17px} .control:last-child{margin-bottom:0}
+.control label{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;text-transform:uppercase;margin-bottom:8px;font-weight:700}
+.value{font-variant-numeric:tabular-nums;font-weight:400;opacity:.65}
+input[type=range]{appearance:none;width:100%;height:18px;background:transparent;cursor:ew-resize;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:1px;background:var(--ink)}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:12px;height:12px;border:1px solid var(--ink);background:#fff;border-radius:50%;margin-top:-5.5px}
+input[type=range]::-moz-range-track{height:1px;background:var(--ink)}
+input[type=range]::-moz-range-thumb{width:10px;height:10px;border:1px solid var(--ink);background:#fff;border-radius:50%}
+.seed-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;margin-bottom:22px}
+.seed-display{border:1px solid var(--ink);border-radius:999px;padding:8px 12px;font-size:11px;font-variant-numeric:tabular-nums}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink);border-radius:999px;overflow:hidden}
+.seg button{border:0;border-right:1px solid var(--ink);border-radius:0;padding:8px 5px;background:transparent;color:var(--ink)}
+.seg button:last-child{border-right:0} .seg button.active{background:var(--ink);color:#fff}
+.palette{height:28px;border:1px solid var(--ink);background:linear-gradient(90deg,#071a52 0%,#1546b8 15%,#00b7e5 30%,#83e45b 45%,#f3ee3a 58%,#ff9d19 72%,#f43a1d 87%,#b80f1a 100%)}
+.note{font-size:10px;line-height:1.4;margin-top:8px;opacity:.65}
+
+/* Logo generator */
+#logoView{grid-template-columns:380px minmax(0,1fr)}
+.logo-controls{border-right:1px solid var(--ink);overflow:auto}
+.logo-stage{position:relative;display:grid;place-items:center;min-width:0;min-height:0;overflow:hidden;background:#f4f4f2}
+.logo-preview-label{position:absolute;left:14px;top:12px;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
+.preview-card{width:min(78%,900px);min-height:340px;display:grid;place-items:center;padding:64px;background:#fff;transition:.2s}
+.preview-card.dark{background:#101010}
+.lockup{display:flex;align-items:center;color:#101010;white-space:nowrap}
+.preview-card.dark .lockup{color:#fff}
+.lockup svg{display:block;fill:currentColor;flex:0 0 auto}
+.lockup.two{gap:34px}
+.lockup.two svg{width:72px;height:auto}
+.lockup.two .logo-name{font-size:24px;font-weight:700;line-height:1.30;letter-spacing:-.025em}
+.lockup.one{gap:28px}
+.lockup.one svg{width:52px;height:auto}
+.lockup.one .logo-name{font-size:20px;font-weight:700;letter-spacing:-.025em}
+.lockup.symbol svg{width:92px;height:auto}
+.choice{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--ink);border-radius:999px;overflow:hidden}
+.choice.three{grid-template-columns:repeat(3,1fr)}
+.choice button{border:0;border-right:1px solid var(--ink);border-radius:0;padding:9px 5px;background:#fff;color:#101010}
+.choice button:last-child{border-right:0}
+.choice button.active{background:#101010;color:#fff}
+.logo-downloads{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.logo-downloads button{width:100%}
+
+@media(max-width:900px){
+  header{padding:0 10px;gap:8px} .brand-title{font-size:12px} nav{margin-left:auto} .nav-btn{padding:0 10px;font-size:10px}
+  .head-actions{display:none}
+}
+@media(max-width:780px){
+  body{overflow:auto} .app{height:auto;min-height:100dvh;grid-template-rows:auto 1fr} header{height:auto;min-height:72px;flex-wrap:wrap;padding:12px}
+  nav{order:3;width:100%;height:40px} .nav-btn{flex:1;border-top:1px solid var(--line)} 
+  #patternView,#logoView{grid-template-columns:1fr;height:auto} .stage,.logo-stage{order:1;height:58dvh;border-bottom:1px solid var(--ink)}
+  aside,.logo-controls{order:2;border-right:0} .canvas-shell{padding:18px} .preview-card{width:88%;min-height:280px;padding:32px}
+  .lockup.two .logo-name{font-size:16px} .lockup.one .logo-name{font-size:12px}
+}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
-  <div class="brand"><svg class="brand-logo" viewBox="0 0 402 445" aria-label="CCYPS logo" role="img"><path d="M 42.0 355.0 L 52.0 368.0 L 75.0 389.0 L 102.0 407.0 L 126.0 419.0 L 166.0 433.0 L 193.0 439.0 L 222.0 443.0 L 283.0 443.0 L 311.0 439.0 L 335.0 433.0 L 354.0 426.0 L 372.0 417.0 L 392.0 402.0 L 401.0 391.0 L 401.0 322.0 L 397.0 336.0 L 389.0 353.0 L 375.0 373.0 L 352.0 396.0 L 325.0 415.0 L 295.0 429.0 L 279.0 434.0 L 257.0 438.0 L 218.0 437.0 L 189.0 428.0 L 166.0 414.0 L 148.0 397.0 L 135.0 380.0 L 124.0 360.0 L 116.0 339.0 L 110.0 309.0 L 110.0 275.0 L 112.0 268.0 L 99.0 293.0 L 81.0 318.0 L 54.0 346.0 Z M 63.0 74.0 L 49.0 90.0 L 41.0 102.0 L 38.0 105.0 L 35.0 111.0 L 28.0 121.0 L 17.0 143.0 L 17.0 145.0 L 14.0 150.0 L 13.0 155.0 L 9.0 164.0 L 9.0 167.0 L 7.0 171.0 L 7.0 174.0 L 6.0 175.0 L 6.0 178.0 L 4.0 183.0 L 4.0 187.0 L 3.0 188.0 L 3.0 192.0 L 2.0 193.0 L 2.0 198.0 L 1.0 199.0 L 1.0 207.0 L 0.0 208.0 L 0.0 246.0 L 1.0 247.0 L 1.0 256.0 L 2.0 257.0 L 4.0 273.0 L 5.0 274.0 L 8.0 289.0 L 9.0 290.0 L 14.0 307.0 L 16.0 310.0 L 16.0 312.0 L 20.0 319.0 L 20.0 321.0 L 23.0 327.0 L 25.0 329.0 L 28.0 336.0 L 31.0 340.0 L 42.0 332.0 L 61.0 313.0 L 82.0 285.0 L 83.0 282.0 L 88.0 275.0 L 99.0 252.0 L 99.0 250.0 L 105.0 234.0 L 107.0 221.0 L 108.0 220.0 L 108.0 215.0 L 109.0 214.0 L 109.0 204.0 L 110.0 203.0 L 109.0 179.0 L 108.0 178.0 L 108.0 172.0 L 107.0 171.0 L 107.0 167.0 L 106.0 166.0 L 106.0 162.0 L 105.0 161.0 L 103.0 150.0 L 102.0 149.0 L 98.0 135.0 L 94.0 127.0 L 94.0 125.0 L 82.0 101.0 L 69.0 81.0 Z M 367.0 49.0 L 349.0 31.0 L 332.0 20.0 L 317.0 13.0 L 300.0 7.0 L 288.0 4.0 L 284.0 4.0 L 283.0 3.0 L 279.0 3.0 L 278.0 2.0 L 264.0 1.0 L 263.0 0.0 L 248.0 0.0 L 254.0 10.0 L 259.0 29.0 L 259.0 52.0 L 258.0 53.0 L 256.0 65.0 L 250.0 81.0 L 244.0 92.0 L 234.0 106.0 L 187.0 158.0 L 152.0 206.0 L 171.0 195.0 L 202.0 184.0 L 218.0 180.0 L 222.0 180.0 L 227.0 178.0 L 236.0 177.0 L 237.0 176.0 L 286.0 169.0 L 287.0 168.0 L 291.0 168.0 L 292.0 167.0 L 296.0 167.0 L 312.0 163.0 L 324.0 159.0 L 342.0 150.0 L 354.0 142.0 L 363.0 134.0 L 373.0 120.0 L 378.0 107.0 L 379.0 97.0 L 380.0 96.0 L 380.0 79.0 L 379.0 78.0 L 378.0 70.0 L 374.0 62.0 L 374.0 60.0 Z M 225.0 0.0 L 222.0 0.0 L 221.0 1.0 L 214.0 1.0 L 213.0 2.0 L 207.0 2.0 L 206.0 3.0 L 197.0 4.0 L 192.0 6.0 L 187.0 6.0 L 182.0 8.0 L 178.0 8.0 L 177.0 9.0 L 170.0 10.0 L 169.0 11.0 L 149.0 17.0 L 146.0 19.0 L 144.0 19.0 L 119.0 31.0 L 117.0 33.0 L 107.0 38.0 L 83.0 55.0 L 77.0 61.0 L 94.0 85.0 L 98.0 93.0 L 100.0 95.0 L 109.0 113.0 L 109.0 115.0 L 116.0 130.0 L 116.0 132.0 L 120.0 142.0 L 120.0 145.0 L 122.0 149.0 L 122.0 152.0 L 124.0 157.0 L 124.0 161.0 L 125.0 162.0 L 125.0 166.0 L 126.0 167.0 L 126.0 172.0 L 127.0 173.0 L 127.0 180.0 L 128.0 181.0 L 128.0 210.0 L 140.0 190.0 L 155.0 171.0 L 157.0 167.0 L 169.0 151.0 L 183.0 135.0 L 183.0 134.0 L 190.0 127.0 L 190.0 126.0 L 219.0 95.0 L 229.0 81.0 L 234.0 71.0 L 234.0 69.0 L 236.0 66.0 L 236.0 64.0 L 238.0 60.0 L 239.0 53.0 L 240.0 52.0 L 240.0 45.0 L 241.0 44.0 L 240.0 30.0 L 239.0 29.0 L 239.0 25.0 L 238.0 24.0 L 237.0 18.0 L 232.0 8.0 Z"/></svg><div class="brand-copy"><div class="brand-title">CCYPS Design</div><div class="brand-subtitle">Bộ tạo Họa tiết</div></div></div>
-  <div class="head-actions"><button id="randomize">Ngẫu nhiên</button><button class="primary" id="export">Xuất PNG</button></div>
+  <div class="brand">
+    <svg class="brand-logo" viewBox="0 0 565.1 626.11" aria-hidden="true"><path d="M180.47,294.41c-.13,1.75-.3,3.51-.48,5.28,9.62-17.51,21.6-35.39,35.81-53.4.7-.89,1.2-1.52,1.48-1.89,27.9-39.95,51.11-64.79,69.75-84.74,27.2-29.11,43.61-46.68,52.14-87.4,1.9-9.05,3.72-49.4-21.88-71.34-16.22,1.31-31.83,3.9-46.55,7.6-82.94,14.25-141.24,60.55-153.96,71.02-1.7,1.4-4.75,3.96-8.79,7.62,20.96,25.06,39.4,56.63,52.42,89.99,15.86,40.6,22.79,81.15,20.05,117.28Z"/><path d="M.02,324.16c.27,23.94,3.97,91.86,44.8,156.3,1.63-1.2,3.26-2.43,4.9-3.7,48.57-37.74,100.13-109.35,105.81-184.25,5.24-69-29.07-143.44-65.42-187.78C54.74,142.26-1.19,218.31.02,324.16Z"/><path d="M363.64,77.37c-9.97,47.56-30.26,69.28-58.34,99.34-18.12,19.39-40.66,43.52-67.56,82.05-.47.68-1.09,1.45-2.31,3-8.26,10.47-15.7,20.86-22.29,31.12,36.33-25.59,85.25-36.27,134.05-45.18,42.78-6.57,82.43-10.97,115.48-25.29,27.54-13.22,52.88-29.27,64.99-56.61.35-.79.68-1.57,1.01-2.36,2.07-5.06,4.5-11.53,5.6-17.03,1.1-8.81,2.2-14.53,2.2-22.58,0-66.91-83.2-121.42-187.25-123.83,18.39,28.81,17.11,64.6,14.43,77.37Z"/><path d="M547.48,496.71c-51.48,89.36-183.27,151.66-283.09,103.75-64.4-30.91-89.51-95.22-95.83-113.58-2.3-6.67-11.31-34.01-12.56-67.71-.52-14.15.32-29.42,3.61-44.76-2.23,5.07-4.63,10.13-7.19,15.17-3.49,6.86-7.28,13.68-11.37,20.44-20.27,33.46-47.25,64.18-75.97,86.5-1.96,1.52-3.91,2.99-5.85,4.41,1.18,1.51,2.37,3.02,3.6,4.53,127.87,156.88,430.08,148.16,502.29,46.13v-101.89c-3.28,14.05-8.45,31.1-17.62,47.02Z"/></svg>
+    <div class="brand-title">CCYPS Design Toolkit</div>
+  </div>
+  <nav aria-label="Công cụ thiết kế">
+    <button class="nav-btn active" data-view="patternView">Bộ tạo họa tiết</button>
+    <button class="nav-btn" data-view="logoView">Bộ tạo logo</button>
+  </nav>
+  <div class="head-actions" id="patternActions">
+    <button id="randomize">Ngẫu nhiên</button>
+    <button class="primary" id="export">Xuất PNG</button>
+  </div>
 </header>
-<main>
+
+<main id="patternView" class="view active">
   <section class="stage">
     <div class="stage-label" id="stageLabel">16:9 / Họa tiết 482</div>
     <div class="canvas-shell"><canvas id="glcanvas"></canvas></div>
@@ -87,7 +136,41 @@
     </div>
   </aside>
 </main>
+
+<main id="logoView" class="view">
+  <section class="logo-controls">
+    <div class="section">
+      <div class="section-title"><span>Bố cục logo</span><span>01</span></div>
+      <div class="choice three" id="logoLayouts">
+        <button data-layout="symbol">Biểu tượng</button>
+        <button class="active" data-layout="two">Hai dòng</button>
+        <button data-layout="one">Một dòng</button>
+      </div>
+      <div class="note">Khoảng cách giữa biểu tượng và tên tổ chức được cố định để đảm bảo logo luôn nhất quán.</div>
+    </div>
+    <div class="section">
+      <div class="section-title"><span>Màu sắc</span><span>02</span></div>
+      <div class="choice" id="logoColors">
+        <button class="active" data-color="black">Đen</button>
+        <button data-color="white">Trắng</button>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title"><span>Xuất logo</span><span>03</span></div>
+      <div class="logo-downloads">
+        <button id="exportLogoSVG">Xuất SVG</button>
+        <button class="primary" id="exportLogoPNG">Xuất PNG</button>
+      </div>
+      <div class="note">PNG được xuất ở độ phân giải cao. SVG giữ nguyên logo dưới dạng vector.</div>
+    </div>
+  </section>
+  <section class="logo-stage">
+    <div class="logo-preview-label">Xem trước / Logo CCYPS</div>
+    <div class="preview-card" id="logoPreview"></div>
+  </section>
+</main>
 </div>
+
 <script>
 const canvas=document.getElementById('glcanvas');
 const gl=canvas.getContext('webgl2',{antialias:false,preserveDrawingBuffer:true});
@@ -230,6 +313,101 @@ function exportPNG(){
 document.getElementById('export').onclick=exportPNG;
 window.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='r')randomize();if(e.key.toLowerCase()==='e')exportPNG();});
 setSeed(482);fitCanvas();render();
+</script>
+
+<script>
+/* ---------- Toolkit navigation ---------- */
+const views=[...document.querySelectorAll('.view')];
+const navButtons=[...document.querySelectorAll('.nav-btn')];
+const patternActions=document.getElementById('patternActions');
+
+function showView(id){
+  views.forEach(v=>v.classList.toggle('active',v.id===id));
+  navButtons.forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+  patternActions.style.visibility=id==='patternView'?'visible':'hidden';
+  if(id==='patternView') requestAnimationFrame(fitCanvas);
+}
+navButtons.forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+
+/* ---------- Logo generator ---------- */
+const CCYPS_VIEWBOX='0 0 565.1 626.11';
+const CCYPS_PATHS='<path d="M180.47,294.41c-.13,1.75-.3,3.51-.48,5.28,9.62-17.51,21.6-35.39,35.81-53.4.7-.89,1.2-1.52,1.48-1.89,27.9-39.95,51.11-64.79,69.75-84.74,27.2-29.11,43.61-46.68,52.14-87.4,1.9-9.05,3.72-49.4-21.88-71.34-16.22,1.31-31.83,3.9-46.55,7.6-82.94,14.25-141.24,60.55-153.96,71.02-1.7,1.4-4.75,3.96-8.79,7.62,20.96,25.06,39.4,56.63,52.42,89.99,15.86,40.6,22.79,81.15,20.05,117.28Z"/><path d="M.02,324.16c.27,23.94,3.97,91.86,44.8,156.3,1.63-1.2,3.26-2.43,4.9-3.7,48.57-37.74,100.13-109.35,105.81-184.25,5.24-69-29.07-143.44-65.42-187.78C54.74,142.26-1.19,218.31.02,324.16Z"/><path d="M363.64,77.37c-9.97,47.56-30.26,69.28-58.34,99.34-18.12,19.39-40.66,43.52-67.56,82.05-.47.68-1.09,1.45-2.31,3-8.26,10.47-15.7,20.86-22.29,31.12,36.33-25.59,85.25-36.27,134.05-45.18,42.78-6.57,82.43-10.97,115.48-25.29,27.54-13.22,52.88-29.27,64.99-56.61.35-.79.68-1.57,1.01-2.36,2.07-5.06,4.5-11.53,5.6-17.03,1.1-8.81,2.2-14.53,2.2-22.58,0-66.91-83.2-121.42-187.25-123.83,18.39,28.81,17.11,64.6,14.43,77.37Z"/><path d="M547.48,496.71c-51.48,89.36-183.27,151.66-283.09,103.75-64.4-30.91-89.51-95.22-95.83-113.58-2.3-6.67-11.31-34.01-12.56-67.71-.52-14.15.32-29.42,3.61-44.76-2.23,5.07-4.63,10.13-7.19,15.17-3.49,6.86-7.28,13.68-11.37,20.44-20.27,33.46-47.25,64.18-75.97,86.5-1.96,1.52-3.91,2.99-5.85,4.41,1.18,1.51,2.37,3.02,3.6,4.53,127.87,156.88,430.08,148.16,502.29,46.13v-101.89c-3.28,14.05-8.45,31.1-17.62,47.02Z"/>';
+const ORG='Climate Conscious Young Professionals Society';
+let logoState={layout:'two',color:'black'};
+
+function markSVG(){
+  return `<svg viewBox="0 0 402 445" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="${CCYPS_PATH}"/></svg>`;
+}
+function previewHTML(){
+  if(logoState.layout==='symbol') return `<div class="lockup symbol">${markSVG()}</div>`;
+  if(logoState.layout==='one') return `<div class="lockup one">${markSVG()}<div class="logo-name">${ORG}</div></div>`;
+  return `<div class="lockup two">${markSVG()}<div class="logo-name">Climate Conscious<br>Young Professionals Society</div></div>`;
+}
+function updateLogo(){
+  const p=document.getElementById('logoPreview');
+  p.classList.toggle('dark',logoState.color==='white');
+  p.innerHTML=previewHTML();
+}
+document.querySelectorAll('#logoLayouts button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#logoLayouts button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); logoState.layout=b.dataset.layout; updateLogo();
+});
+document.querySelectorAll('#logoColors button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#logoColors button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); logoState.color=b.dataset.color; updateLogo();
+});
+
+function logoSVGDocument(){
+  const fill=logoState.color==='white'?'#FFFFFF':'#000000';
+  const fontImport=`<style>@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@700&amp;display=swap');.wordmark{font-family:'Alexandria',Arial,sans-serif;font-weight:700}</style>`;
+  const mark=`<g fill="${fill}">${CCYPS_PATHS}</g>`;
+
+  if(logoState.layout==='symbol'){
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${CCYPS_VIEWBOX}">${mark}</svg>`;
+  }
+
+  /* The two-line lockup follows the supplied reference:
+     symbol and two-line wordmark have nearly the same optical height,
+     with a generous but fixed clear-space between them. */
+  if(logoState.layout==='two'){
+    const w=1960,h=626;
+    const textX=760;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">${fontImport}${mark}<text class="wordmark" x="${textX}" y="245" font-size="126" fill="${fill}"><tspan x="${textX}" dy="0">Climate Conscious</tspan><tspan x="${textX}" dy="164">Young Professionals Society</tspan></text></svg>`;
+  }
+
+  /* Single-line variant: mark is optically reduced so the one-line
+     wordmark remains compact rather than becoming extremely tall. */
+  const w=3250,h=626;
+  const markScale=.72;
+  const markY=(626-(626.11*markScale))/2;
+  const textX=560;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">${fontImport}<g transform="translate(0 ${markY}) scale(${markScale})" fill="${fill}">${CCYPS_PATHS}</g><text class="wordmark" x="${textX}" y="355" font-size="112" fill="${fill}">Climate Conscious Young Professionals Society</text></svg>`;
+}
+
+function downloadBlob(blob,name){
+  const url=URL.createObjectURL(blob); const a=document.createElement('a');a.href=url;a.download=name;a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),500);
+}
+document.getElementById('exportLogoSVG').onclick=()=>{
+  downloadBlob(new Blob([logoSVGDocument()],{type:'image/svg+xml;charset=utf-8'}),`ccyps-logo_${logoState.layout}_${logoState.color}.svg`);
+};
+document.getElementById('exportLogoPNG').onclick=async()=>{
+  await document.fonts.ready;
+  const svg=logoSVGDocument();
+  const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const img=new Image();
+  img.onload=()=>{
+    const scale=3,c=document.createElement('canvas');
+    const vb=img.width&&img.height?{w:img.width,h:img.height}:(logoState.layout==='symbol'?{w:402,h:445}:logoState.layout==='two'?{w:1320,h:445}:{w:2400,h:445});
+    c.width=vb.w*scale;c.height=vb.h*scale;
+    const ctx=c.getContext('2d');ctx.scale(scale,scale);ctx.drawImage(img,0,0,vb.w,vb.h);
+    URL.revokeObjectURL(url);
+    c.toBlob(png=>downloadBlob(png,`ccyps-logo_${logoState.layout}_${logoState.color}.png`),'image/png');
+  };
+  img.src=url;
+};
+updateLogo();
 </script>
 </body>
 </html>
