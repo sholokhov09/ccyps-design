@@ -1,24 +1,237 @@
-.landing{
-  min-height:0;overflow:auto;
-  display:flex;align-items:center;justify-content:center;
-  padding:64px 24px 72px
+/* =========================================================
+   CCYPS DESIGN TOOLKIT — LANDING PAGE
+   Complete landing.css
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   LANDING PAGE
+   --------------------------------------------------------- */
+
+.landing {
+  min-height: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow-y: auto;
+
+  padding: 64px 24px 72px;
 }
-.landing-content{width:min(100%,760px)}
-.landing h1{
-  margin:0 0 24px;font-size:clamp(32px,4vw,52px);
-  line-height:1.08;letter-spacing:-.035em
+
+
+/* ---------------------------------------------------------
+   CONTENT
+   --------------------------------------------------------- */
+
+.landing-content {
+  width: min(100%, 760px);
 }
-.landing-copy{margin:0;max-width:680px;font-size:16px;line-height:1.65}
-.tool-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:40px}
-.tool-card{
-  min-height:150px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;
-  border:1px solid var(--ink);border-radius:8px;background:#fff;
-  color:var(--ink);text-decoration:none;font-size:16px;font-weight:700;line-height:1.3
+
+
+/* ---------------------------------------------------------
+   HEADING
+   --------------------------------------------------------- */
+
+.landing-content h1 {
+  margin: 0 0 24px;
+
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+
+  line-height: 1.08;
+  letter-spacing: -0.035em;
 }
-.tool-card:hover{background:var(--ink);color:#fff}
-.tool-card .arrow{align-self:flex-end;font-size:22px;font-weight:400}
-@media(max-width:600px){
-  .landing{padding:44px 18px 56px;align-items:flex-start}
-  .tool-cards{grid-template-columns:1fr}
-  .tool-card{min-height:120px}
+
+
+/* ---------------------------------------------------------
+   INTRO COPY
+   --------------------------------------------------------- */
+
+.landing-copy {
+  max-width: 680px;
+
+  margin: 0;
+
+  font-size: 16px;
+  font-weight: 400;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   TOOL CARDS
+   ========================================================= */
+
+.tool-cards {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+
+  margin-top: 40px;
+}
+
+
+/* ---------------------------------------------------------
+   CARD
+   --------------------------------------------------------- */
+
+.tool-card {
+  display: grid;
+
+  grid-template-rows: 240px auto;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  color: var(--ink);
+  text-decoration: none;
+
+  background: #FFFFFF;
+
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+
+/* ---------------------------------------------------------
+   CARD ARTWORK
+   --------------------------------------------------------- */
+
+.tool-card-preview {
+  display: grid;
+  place-items: center;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding: 24px;
+
+  overflow: hidden;
+
+  background: #FFFFFF;
+}
+
+
+.tool-card-preview img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: 100%;
+  max-height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+}
+
+
+/* ---------------------------------------------------------
+   CARD FOOTER
+   --------------------------------------------------------- */
+
+.tool-card-footer {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  min-height: 68px;
+
+  padding: 16px 18px;
+
+  border-top: 1px solid var(--ink);
+
+  font-size: 14px;
+  font-weight: 700;
+
+  line-height: 1.35;
+}
+
+
+/* ---------------------------------------------------------
+   ARROW
+   --------------------------------------------------------- */
+
+.tool-card .arrow {
+  flex-shrink: 0;
+
+  font-size: 20px;
+  font-weight: 400;
+
+  line-height: 1;
+}
+
+
+/* ---------------------------------------------------------
+   HOVER
+   --------------------------------------------------------- */
+
+.tool-card:hover {
+  color: #FFFFFF;
+
+  background: var(--ink);
+}
+
+
+/*
+   Keep the SVG artwork area white when hovering.
+*/
+
+.tool-card:hover .tool-card-preview {
+  background: #FFFFFF;
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .landing {
+    align-items: flex-start;
+
+    padding: 44px 18px 56px;
+  }
+
+
+  .landing-content h1 {
+    font-size: 34px;
+  }
+
+
+  .landing-copy {
+    font-size: 15px;
+  }
+
+
+  .tool-cards {
+    grid-template-columns: 1fr;
+
+    margin-top: 32px;
+  }
+
+
+  .tool-card {
+    grid-template-rows: 220px auto;
+  }
+
+
+  .tool-card-preview {
+    padding: 20px;
+  }
+
 }
