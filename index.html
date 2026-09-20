@@ -3,29 +3,33 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bão mặt trời — Bộ tạo họa tiết tham số</title>
+<title>CCYPS Design — Bộ tạo Bão mặt trời</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--ink:#101010;--paper:#f2f0e9;--line:#c8c5bb;--panel:#e7e4da;--accent:#ff4b24}
+  :root{--ink:#101010;--paper:#ffffff;--line:#d8d8d8;--panel:#ffffff}
   *{box-sizing:border-box}
-  html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+  html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:'Alexandria',Arial,Helvetica,sans-serif}
   body{overflow:hidden}
   button,input{font:inherit;color:inherit}
-  .app{height:100dvh;display:grid;grid-template-rows:58px 1fr 34px}
-  header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ink);padding:0 14px 0 18px;text-transform:uppercase;letter-spacing:.02em}
-  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:14px}
-  .brand i{width:10px;height:10px;background:var(--accent);border-radius:50%;display:inline-block}
+  .app{height:100dvh;display:grid;grid-template-rows:72px 1fr}
+  header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ink);padding:0 14px 0 18px;letter-spacing:.02em}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand-logo{width:26px;height:29px;display:block;flex:0 0 auto;fill:var(--ink)}
+  .brand-copy{display:flex;flex-direction:column;gap:2px;line-height:1.05}
+  .brand-title{font-size:14px;font-weight:700;letter-spacing:.01em}
+  .brand-subtitle{font-size:11px;font-weight:400;color:#8a8a8a;letter-spacing:.01em}
   .head-actions{display:flex;gap:8px}
   button{border:1px solid var(--ink);background:transparent;border-radius:999px;padding:8px 12px;cursor:pointer;text-transform:uppercase;font-size:11px;font-weight:700;letter-spacing:.04em}
   button:hover{background:var(--ink);color:var(--paper)}
   button.primary{background:var(--ink);color:var(--paper)}
-  button.primary:hover{background:var(--accent);border-color:var(--accent);color:#111}
+  button.primary:hover{background:#333;border-color:#333;color:#fff}
   main{min-height:0;display:grid;grid-template-columns:380px minmax(0,1fr)}
-  .stage{position:relative;min-width:0;min-height:0;background:#111;display:grid;place-items:center;overflow:hidden}
+  .stage{position:relative;min-width:0;min-height:0;background:#fff;display:grid;place-items:center;overflow:hidden}
   .canvas-shell{position:relative;width:100%;height:100%;display:grid;place-items:center;padding:28px}
-  canvas{display:block;max-width:100%;max-height:100%;box-shadow:0 0 0 1px rgba(255,255,255,.18);background:#071a52}
-  .stage-label{position:absolute;left:14px;top:12px;z-index:2;color:#fff;font-size:10px;text-transform:uppercase;letter-spacing:.08em;mix-blend-mode:difference}
-  .live{position:absolute;right:14px;top:12px;z-index:2;color:#fff;font-size:10px;text-transform:uppercase;letter-spacing:.08em;display:flex;gap:7px;align-items:center;mix-blend-mode:difference}
-  .live:before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;display:block}
+  canvas{display:block;max-width:100%;max-height:100%;box-shadow:0 0 0 1px rgba(0,0,0,.12);background:#071a52}
+  .stage-label{position:absolute;left:14px;top:12px;z-index:2;color:var(--ink);font-size:10px;text-transform:uppercase;letter-spacing:.08em}
   aside{order:1;border-right:1px solid var(--ink);background:var(--paper);overflow:auto}
   .stage{order:2}
   .section{padding:15px 16px 17px;border-bottom:1px solid var(--line)}
@@ -40,7 +44,7 @@
   input[type="range"]::-webkit-slider-thumb{appearance:none;width:12px;height:12px;border:1px solid var(--ink);background:var(--paper);border-radius:50%;margin-top:-5.5px}
   input[type="range"]::-moz-range-track{height:1px;background:var(--ink)}
   input[type="range"]::-moz-range-thumb{width:10px;height:10px;border:1px solid var(--ink);background:var(--paper);border-radius:50%}
-  .seed-row{display:grid;grid-template-columns:1fr auto;gap:8px}
+  .seed-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;margin-bottom:22px}
   .seed-display{border:1px solid var(--ink);border-radius:999px;padding:8px 12px;font-size:11px;font-variant-numeric:tabular-nums}
   .seg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--ink);border-radius:999px;overflow:hidden}
   .seg button{border:0;border-right:1px solid var(--ink);border-radius:0;padding:8px 5px;background:transparent;color:var(--ink)}
@@ -48,21 +52,18 @@
   .seg button.active{background:var(--ink);color:var(--paper)}
   .palette{height:28px;border:1px solid var(--ink);background:linear-gradient(90deg,#071a52 0%,#1546b8 15%,#00b7e5 30%,#83e45b 45%,#f3ee3a 58%,#ff9d19 72%,#f43a1d 87%,#b80f1a 100%)}
   .note{font-size:10px;line-height:1.4;margin-top:8px;opacity:.65}
-  footer{border-top:1px solid var(--ink);display:flex;align-items:center;justify-content:space-between;padding:0 14px 0 18px;font-size:9px;text-transform:uppercase;letter-spacing:.08em}
-  .kbd{border:1px solid var(--line);border-radius:4px;padding:2px 5px}
-  @media(max-width:780px){body{overflow:auto}.app{height:auto;min-height:100dvh;grid-template-rows:58px auto 34px}main{grid-template-columns:1fr}.stage{order:1;height:58dvh}.stage{border-bottom:1px solid var(--ink)}aside{order:2;border-right:0}.canvas-shell{padding:18px}}
+  @media(max-width:780px){body{overflow:auto}.app{height:auto;min-height:100dvh;grid-template-rows:72px auto}main{grid-template-columns:1fr}.stage{order:1;height:58dvh}.stage{border-bottom:1px solid var(--ink)}aside{order:2;border-right:0}.canvas-shell{padding:18px}}
 </style>
 </head>
 <body>
 <div class="app">
 <header>
-  <div class="brand"><i></i><span>CYPPS Design / Bộ tạo bão mặt trời :3</span></div>
+  <div class="brand"><svg class="brand-logo" viewBox="0 0 402 445" aria-label="CCYPS logo" role="img"><path d="M 42.0 355.0 L 52.0 368.0 L 75.0 389.0 L 102.0 407.0 L 126.0 419.0 L 166.0 433.0 L 193.0 439.0 L 222.0 443.0 L 283.0 443.0 L 311.0 439.0 L 335.0 433.0 L 354.0 426.0 L 372.0 417.0 L 392.0 402.0 L 401.0 391.0 L 401.0 322.0 L 397.0 336.0 L 389.0 353.0 L 375.0 373.0 L 352.0 396.0 L 325.0 415.0 L 295.0 429.0 L 279.0 434.0 L 257.0 438.0 L 218.0 437.0 L 189.0 428.0 L 166.0 414.0 L 148.0 397.0 L 135.0 380.0 L 124.0 360.0 L 116.0 339.0 L 110.0 309.0 L 110.0 275.0 L 112.0 268.0 L 99.0 293.0 L 81.0 318.0 L 54.0 346.0 Z M 63.0 74.0 L 49.0 90.0 L 41.0 102.0 L 38.0 105.0 L 35.0 111.0 L 28.0 121.0 L 17.0 143.0 L 17.0 145.0 L 14.0 150.0 L 13.0 155.0 L 9.0 164.0 L 9.0 167.0 L 7.0 171.0 L 7.0 174.0 L 6.0 175.0 L 6.0 178.0 L 4.0 183.0 L 4.0 187.0 L 3.0 188.0 L 3.0 192.0 L 2.0 193.0 L 2.0 198.0 L 1.0 199.0 L 1.0 207.0 L 0.0 208.0 L 0.0 246.0 L 1.0 247.0 L 1.0 256.0 L 2.0 257.0 L 4.0 273.0 L 5.0 274.0 L 8.0 289.0 L 9.0 290.0 L 14.0 307.0 L 16.0 310.0 L 16.0 312.0 L 20.0 319.0 L 20.0 321.0 L 23.0 327.0 L 25.0 329.0 L 28.0 336.0 L 31.0 340.0 L 42.0 332.0 L 61.0 313.0 L 82.0 285.0 L 83.0 282.0 L 88.0 275.0 L 99.0 252.0 L 99.0 250.0 L 105.0 234.0 L 107.0 221.0 L 108.0 220.0 L 108.0 215.0 L 109.0 214.0 L 109.0 204.0 L 110.0 203.0 L 109.0 179.0 L 108.0 178.0 L 108.0 172.0 L 107.0 171.0 L 107.0 167.0 L 106.0 166.0 L 106.0 162.0 L 105.0 161.0 L 103.0 150.0 L 102.0 149.0 L 98.0 135.0 L 94.0 127.0 L 94.0 125.0 L 82.0 101.0 L 69.0 81.0 Z M 367.0 49.0 L 349.0 31.0 L 332.0 20.0 L 317.0 13.0 L 300.0 7.0 L 288.0 4.0 L 284.0 4.0 L 283.0 3.0 L 279.0 3.0 L 278.0 2.0 L 264.0 1.0 L 263.0 0.0 L 248.0 0.0 L 254.0 10.0 L 259.0 29.0 L 259.0 52.0 L 258.0 53.0 L 256.0 65.0 L 250.0 81.0 L 244.0 92.0 L 234.0 106.0 L 187.0 158.0 L 152.0 206.0 L 171.0 195.0 L 202.0 184.0 L 218.0 180.0 L 222.0 180.0 L 227.0 178.0 L 236.0 177.0 L 237.0 176.0 L 286.0 169.0 L 287.0 168.0 L 291.0 168.0 L 292.0 167.0 L 296.0 167.0 L 312.0 163.0 L 324.0 159.0 L 342.0 150.0 L 354.0 142.0 L 363.0 134.0 L 373.0 120.0 L 378.0 107.0 L 379.0 97.0 L 380.0 96.0 L 380.0 79.0 L 379.0 78.0 L 378.0 70.0 L 374.0 62.0 L 374.0 60.0 Z M 225.0 0.0 L 222.0 0.0 L 221.0 1.0 L 214.0 1.0 L 213.0 2.0 L 207.0 2.0 L 206.0 3.0 L 197.0 4.0 L 192.0 6.0 L 187.0 6.0 L 182.0 8.0 L 178.0 8.0 L 177.0 9.0 L 170.0 10.0 L 169.0 11.0 L 149.0 17.0 L 146.0 19.0 L 144.0 19.0 L 119.0 31.0 L 117.0 33.0 L 107.0 38.0 L 83.0 55.0 L 77.0 61.0 L 94.0 85.0 L 98.0 93.0 L 100.0 95.0 L 109.0 113.0 L 109.0 115.0 L 116.0 130.0 L 116.0 132.0 L 120.0 142.0 L 120.0 145.0 L 122.0 149.0 L 122.0 152.0 L 124.0 157.0 L 124.0 161.0 L 125.0 162.0 L 125.0 166.0 L 126.0 167.0 L 126.0 172.0 L 127.0 173.0 L 127.0 180.0 L 128.0 181.0 L 128.0 210.0 L 140.0 190.0 L 155.0 171.0 L 157.0 167.0 L 169.0 151.0 L 183.0 135.0 L 183.0 134.0 L 190.0 127.0 L 190.0 126.0 L 219.0 95.0 L 229.0 81.0 L 234.0 71.0 L 234.0 69.0 L 236.0 66.0 L 236.0 64.0 L 238.0 60.0 L 239.0 53.0 L 240.0 52.0 L 240.0 45.0 L 241.0 44.0 L 240.0 30.0 L 239.0 29.0 L 239.0 25.0 L 238.0 24.0 L 237.0 18.0 L 232.0 8.0 Z"/></svg><div class="brand-copy"><div class="brand-title">CCYPS Design</div><div class="brand-subtitle">Bộ tạo Bão mặt trời</div></div></div>
   <div class="head-actions"><button id="randomize">Ngẫu nhiên</button><button class="primary" id="export">Xuất PNG</button></div>
 </header>
 <main>
   <section class="stage">
     <div class="stage-label" id="stageLabel">16:9 / Họa tiết 482</div>
-    <div class="live">Trực tiếp</div>
     <div class="canvas-shell"><canvas id="glcanvas"></canvas></div>
   </section>
   <aside>
@@ -82,11 +83,10 @@
     <div class="section">
       <div class="section-title"><span>Bảng màu cho nhiệm kì này: Bão mặt trời</span><span>03</span></div>
       <div class="palette" aria-label="Bảng màu cố định của Bão mặt trời"></div>
-      <div class="note">Bảng màu được cố định có chủ đích. Các điều chỉnh chỉ thay đổi cấu trúc họa tiết, không thay đổi màu sắc.</div>
+      <div class="note">Đây là bảng màu được CCYPS sử dụng cho các ấn phẩm của nhiệm kì 2026 - 2027. Bảng màu sẽ thay đổi theo mỗi năm.</div>
     </div>
   </aside>
 </main>
-<footer><span>Cố định theo tham số / không AI / WebGL2</span><span><span class="kbd">R</span> ngẫu nhiên &nbsp; <span class="kbd">E</span> xuất PNG</span></footer>
 </div>
 <script>
 const canvas=document.getElementById('glcanvas');
