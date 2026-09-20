@@ -1,0 +1,99 @@
+/* CCYPS landing page — 12-column grid */
+
+.landing{
+  min-height:0;
+  overflow-y:auto;
+  padding:var(--space-8) var(--page-pad);
+}
+
+.landing-content{
+  width:100%;
+  max-width:960px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  column-gap:var(--grid-gap);
+  row-gap:0;
+}
+
+.landing-content h1{
+  grid-column:1 / span 9;
+  margin:0 0 var(--space-3);
+  font-size:var(--type-lg);
+  font-weight:700;
+  line-height:1.1;
+  letter-spacing:-.03em;
+}
+
+.landing-copy{
+  grid-column:1 / span 8;
+  margin:0;
+  color:var(--ink);
+  font-size:var(--type-md);
+  font-weight:400;
+  line-height:1.6;
+}
+
+.tool-cards{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  column-gap:var(--grid-gap);
+  margin-top:var(--space-6);
+}
+
+.tool-card{
+  grid-column:span 6;
+  min-width:0;
+  overflow:hidden;
+  color:var(--ink);
+  text-decoration:none;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:0;
+}
+.tool-card:hover{background:var(--surface-hover)}
+
+.tool-card-media{
+  position:relative;
+  margin:var(--space-2) var(--space-2) 0;
+  aspect-ratio:304/123;
+  overflow:hidden;
+  border-radius:0;
+}
+.tool-card-media--pattern{
+  background:linear-gradient(90deg,#071a52 0%,#1546b8 18%,#00b7e5 37%,#83e45b 55%,#f3ee3a 68%,#ff9d19 82%,#f43a1d 100%);
+}
+#landingPatternCanvas{display:block;width:100%;height:100%}
+.tool-card-media--logo{display:grid;place-items:center;background:#101010}
+.tool-card-logo{display:block;width:56%;height:auto;max-width:224px}
+
+.tool-card-copy{padding:var(--space-2)}
+.tool-card-copy h2{
+  margin:0 0 var(--space-1);
+  color:var(--ink);
+  font-size:var(--type-md);
+  font-weight:500;
+  line-height:1.3;
+}
+.tool-card-copy p{
+  margin:0;
+  color:var(--muted);
+  font-size:var(--type-md);
+  font-weight:400;
+  line-height:1.4;
+}
+
+@media(max-width:780px){
+  .landing{padding:var(--space-6) var(--page-pad)}
+  .landing-content{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .landing-content h1{grid-column:1 / -1}
+  .landing-copy{grid-column:1 / -1}
+  .tool-cards{
+    grid-column:1 / -1;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    row-gap:var(--space-2);
+    margin-top:var(--space-4);
+  }
+  .tool-card{grid-column:1 / -1}
+}
