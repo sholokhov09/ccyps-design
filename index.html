@@ -18,11 +18,11 @@ header{display:flex;align-items:center;justify-content:space-between;border-bott
 .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
 .brand-logo{width:26px;height:29px;display:block;fill:var(--ink)}
 .brand-title{font-size:14px;font-weight:700}
-nav{display:flex;align-items:center;gap:3px;padding:3px;background:#f1f1ef;border-radius:999px;align-self:center}
-.nav-btn{border:0;border-radius:999px;background:transparent;padding:7px 12px;font-size:10px;font-weight:600;text-transform:none;letter-spacing:0;line-height:1;white-space:nowrap}
-.nav-btn.active{background:var(--ink);color:#fff}
-.nav-btn:hover{background:#deded9;color:var(--ink)}
-.nav-btn.active:hover{background:var(--ink);color:#fff}
+nav{display:flex;align-items:center;gap:22px;align-self:center}
+.nav-btn{border:0!important;border-radius:0;background:transparent!important;padding:4px 0;font-size:10px;font-weight:500;text-transform:none;letter-spacing:0;line-height:1;white-space:nowrap;color:#8a8a8a}
+.nav-btn:hover{color:var(--ink);background:transparent!important}
+.nav-btn.active{color:var(--ink);font-weight:700;background:transparent!important}
+.nav-btn.active:hover{color:var(--ink);background:transparent!important}
 .head-actions{display:flex;gap:8px;min-width:max-content}
 button{border:1px solid var(--ink);background:transparent;border-radius:999px;padding:8px 12px;cursor:pointer;text-transform:uppercase;font-size:11px;font-weight:700;letter-spacing:.04em}
 button:hover{background:var(--ink);color:var(--paper)}
@@ -56,15 +56,20 @@ input[type=range]::-moz-range-thumb{width:10px;height:10px;border:1px solid var(
 .note{font-size:10px;line-height:1.4;margin-top:8px;opacity:.65}
 
 /* Logo generator */
-#logoView{grid-template-columns:380px minmax(0,1fr)}
-.logo-controls{border-right:1px solid var(--ink);overflow:auto}
-.logo-stage{position:relative;display:grid;place-items:center;min-width:0;min-height:0;overflow:hidden;background:#f4f4f2}
-.logo-preview-label{position:absolute;left:14px;top:12px;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
-.preview-card{width:min(78%,900px);min-height:340px;display:grid;place-items:center;padding:64px;background:#fff;transition:.2s}
+#logoView{position:relative;display:none;background:#f4f4f2}
+#logoView.active{display:block}
+.logo-controls{position:absolute;left:18px;top:18px;z-index:5;width:270px;background:#fff;border-radius:12px;padding:8px;box-shadow:0 8px 28px rgba(0,0,0,.08)}
+.logo-controls .section{padding:10px;border:0}
+.logo-controls .section+.section{border-top:1px solid #ececea}
+.logo-controls .section-title{margin-bottom:9px;font-size:9px}
+.logo-controls .note{display:none}
+.logo-stage{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;background:#f4f4f2}
+.logo-preview-label{position:absolute;right:18px;top:18px;font-size:9px;text-transform:uppercase;letter-spacing:.08em;opacity:.5}
+.preview-card{width:min(72%,940px);min-height:390px;display:grid;place-items:center;padding:72px;background:#fff;border-radius:12px;transition:.2s}
 .preview-card.dark{background:#101010}
-.lockup{display:flex;align-items:center;color:#101010;white-space:nowrap}
+.lockup{display:flex;align-items:center;color:#010101;white-space:nowrap}
 .preview-card.dark .lockup{color:#fff}
-.lockup svg{display:block;fill:currentColor;flex:0 0 auto}
+.lockup svg{display:block;fill:currentColor!important;flex:0 0 auto}.lockup svg path{fill:currentColor!important}
 .lockup.two{gap:34px}
 .lockup.two svg{width:72px;height:auto}
 .lockup.two .logo-name{font-size:24px;font-weight:700;line-height:1.30;letter-spacing:-.025em}
@@ -77,8 +82,9 @@ input[type=range]::-moz-range-thumb{width:10px;height:10px;border:1px solid var(
 .choice button{border:0;border-right:1px solid var(--ink);border-radius:0;padding:9px 5px;background:#fff;color:#101010}
 .choice button:last-child{border-right:0}
 .choice button.active{background:#101010;color:#fff}
-.logo-downloads{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.logo-downloads button{width:100%}
+.logo-downloads{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.logo-downloads button{width:100%;padding:8px 7px;font-size:9px}
+.logo-controls .choice button{padding:8px 4px;font-size:9px}
 
 @media(max-width:900px){
   header{padding:0 10px;gap:8px} .brand-title{font-size:12px} nav{margin-left:auto} .nav-btn{padding:0 10px;font-size:10px}
@@ -86,8 +92,8 @@ input[type=range]::-moz-range-thumb{width:10px;height:10px;border:1px solid var(
 }
 @media(max-width:780px){
   body{overflow:auto} .app{height:auto;min-height:100dvh;grid-template-rows:auto 1fr} header{height:auto;min-height:72px;flex-wrap:wrap;padding:12px}
-  nav{order:3;width:100%;height:40px} .nav-btn{flex:1;border-top:1px solid var(--line)} 
-  #patternView,#logoView{grid-template-columns:1fr;height:auto} .stage,.logo-stage{order:1;height:58dvh;border-bottom:1px solid var(--ink)}
+  nav{order:3;width:100%;height:40px;justify-content:center} .nav-btn{flex:0 0 auto;border:0!important} 
+  #patternView{grid-template-columns:1fr;height:auto} .stage{order:1;height:58dvh;border-bottom:1px solid var(--ink)} #logoView{height:calc(100dvh - 124px);min-height:650px}.logo-stage{height:100%}.logo-controls{left:12px;top:12px;width:calc(100% - 24px);max-width:320px}.preview-card{width:88%;min-height:300px;padding:36px}
   aside,.logo-controls{order:2;border-right:0} .canvas-shell{padding:18px} .preview-card{width:88%;min-height:280px;padding:32px}
   .lockup.two .logo-name{font-size:16px} .lockup.one .logo-name{font-size:12px}
 }
@@ -140,32 +146,29 @@ input[type=range]::-moz-range-thumb{width:10px;height:10px;border:1px solid var(
 <main id="logoView" class="view">
   <section class="logo-controls">
     <div class="section">
-      <div class="section-title"><span>Bố cục logo</span><span>01</span></div>
+      <div class="section-title"><span>Bố cục</span><span>01</span></div>
       <div class="choice three" id="logoLayouts">
         <button data-layout="symbol">Biểu tượng</button>
         <button class="active" data-layout="two">Hai dòng</button>
         <button data-layout="one">Một dòng</button>
       </div>
-      <div class="note">Khoảng cách giữa biểu tượng và tên tổ chức được cố định để đảm bảo logo luôn nhất quán.</div>
     </div>
     <div class="section">
-      <div class="section-title"><span>Màu sắc</span><span>02</span></div>
+      <div class="section-title"><span>Màu</span><span>02</span></div>
       <div class="choice" id="logoColors">
         <button class="active" data-color="black">Đen</button>
         <button data-color="white">Trắng</button>
       </div>
     </div>
     <div class="section">
-      <div class="section-title"><span>Xuất logo</span><span>03</span></div>
       <div class="logo-downloads">
-        <button id="exportLogoSVG">Xuất SVG</button>
-        <button class="primary" id="exportLogoPNG">Xuất PNG</button>
+        <button id="exportLogoSVG">SVG</button>
+        <button class="primary" id="exportLogoPNG">PNG</button>
       </div>
-      <div class="note">PNG được xuất ở độ phân giải cao. SVG giữ nguyên logo dưới dạng vector.</div>
     </div>
   </section>
   <section class="logo-stage">
-    <div class="logo-preview-label">Xem trước / Logo CCYPS</div>
+    <div class="logo-preview-label">Xem trước</div>
     <div class="preview-card" id="logoPreview"></div>
   </section>
 </main>
