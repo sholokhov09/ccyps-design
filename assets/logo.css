@@ -1,0 +1,45 @@
+body{overflow:hidden}
+.logo-main{
+  display:grid;
+  grid-template-columns:var(--rail-w) minmax(0,1fr);
+  min-width:0;min-height:0;overflow:hidden
+}
+.logo-controls{
+  grid-column:1;min-width:0;min-height:0;overflow-y:auto;
+  border-right:1px solid var(--ink);background:#fff
+}
+.logo-stage{
+  grid-column:2;position:relative;display:grid;place-items:center;
+  min-width:0;min-height:0;overflow:hidden;background:#fff
+}
+.logo-preview-label{
+  position:absolute;left:14px;top:12px;z-index:2;
+  font-size:10px;text-transform:uppercase;letter-spacing:.08em
+}
+.preview-card{
+  width:min(76%,900px);min-height:360px;display:grid;place-items:center;
+  padding:64px;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden
+}
+.preview-card.dark{background:#101010;border-color:#101010}
+.vector-lockup{
+  display:block;width:auto;height:auto;
+  max-width:calc(100% - 48px);max-height:calc(100% - 48px);
+  object-fit:contain;object-position:center
+}
+.logo-actions{
+  display:grid;grid-template-columns:1fr 1fr;
+  border:1px solid var(--ink);border-radius:999px;overflow:hidden
+}
+.logo-actions+.logo-actions{margin-top:8px}
+.logo-actions button{width:100%;border:0;border-radius:0;background:#fff;color:var(--ink)}
+.logo-actions button+button{border-left:1px solid var(--ink)}
+.logo-actions button:hover{background:var(--ink);color:#fff}
+
+@media(max-width:780px){
+  body{overflow:auto}
+  .logo-main{grid-template-columns:1fr;grid-template-rows:58dvh auto;overflow:visible}
+  .logo-stage{grid-column:1;grid-row:1;border-bottom:1px solid var(--ink)}
+  .logo-controls{grid-column:1;grid-row:2;border-right:0;overflow:visible}
+  .preview-card{width:calc(100% - 36px);min-height:280px;padding:28px}
+  .vector-lockup{max-height:200px}
+}
