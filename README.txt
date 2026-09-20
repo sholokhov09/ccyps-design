@@ -24,3 +24,9 @@ Canonical asset update:
 - White SVGs are exact geometry clones with fill changed only from black to white.
 - PNGs are rasterized from those exact SVGs.
 - Preview loads the canonical SVG assets directly; CSS adds no logo/text gap or line spacing.
+
+Alexandria 900-normal update:
+- Wordmarks rebuilt from alexandria-latin-900-normal.ttf, not from the heavier-looking outlined iteration text.
+- User iteration's visual spacing is preserved: one-line 28px visual mark/text gap; two-line 26px visual gap; two-line 15.75px blank row gap.
+- Symbol paths remain copied from the user's iteration.
+- Black/white SVG geometry is identical; PNGs are generated from those SVGs.
